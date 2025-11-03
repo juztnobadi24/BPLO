@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Business Application - Guide</title>
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8f9fa;
+        }
+        
+        .simple-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .simple-section {
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        
+        .simple-step {
+            margin-bottom: 25px;
+        }
+        
+        .step-title {
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            color: #1a4a8f;
+        }
+        
+        .step-content {
+            margin-left: 0;
+        }
+        
+        .action-item {
+            margin-bottom: 8px;
+            display: flex;
+            align-items: flex-start;
+        }
+        
+        .bullet {
+            color: #4CAF50;
+            font-weight: bold;
+            margin-right: 8px;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+        
+        .link {
+            color: #1a4a8f;
+            text-decoration: underline;
+            font-weight: 500;
+        }
+        
+        .note {
+            background: #e8f4fd;
+            padding: 8px 12px;
+            margin: 8px 0;
+            border-radius: 5px;
+            font-size: 0.9rem;
+        }
+        
+        .requirement-list {
+            list-style-type: none;
+        }
+        
+        .requirement-list li {
+            padding: 6px 0;
+            display: flex;
+            align-items: center;
+        }
+        
+        .checkmark {
+            color: #4CAF50;
+            margin-right: 8px;
+            font-weight: bold;
+        }
+        
+        .cta-section {
+            text-align: center;
+            padding: 25px 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            margin-top: 25px;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background: #1a4a8f;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-weight: 600;
+            font-size: 1rem;
+            text-decoration: none;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-md border-b border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex-shrink-0 flex items-center">
+                    <a href="index.html" class="flex items-center">
+                        <div class="h-10 w-10 bg-blue-600 rounded-md flex items-center justify-center text-white font-bold text-lg mr-3">BPLO</div>
+                        <span class="text-xl font-bold text-gray-900">BPLO - Liloan, Southern Leyte</span>
+                    </a>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-8">
+                        <a href="index.html" class="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium">Home</a>
+                        <a href="#services" class="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium">Services</a>
+                        <a href="#team" class="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium">Team</a>
+                        <a href="#pricing" class="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium">Pricing</a>
+                        <a href="register.html" class="bg-blue-600 text-white px-4 py-2 rounded-md text-sm font-medium">Get Started</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="bg-blue-700 text-white pt-20 pb-16">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <h1 class="text-4xl font-bold mb-4">
+                New Business Application
+            </h1>
+            <p class="text-xl max-w-3xl mx-auto">
+                Simple step-by-step guide to register your business with ease.
+            </p>
+        </div>
+    </section>
+
+    <div class="simple-container px-4 py-10">
+        <!-- Documentary Requirements -->
+        <div class="simple-section">
+            <h2 class="text-2xl font-bold mb-4 text-gray-800">Required Documents</h2>
+            <p class="mb-4">Have these documents ready before starting:</p>
+            
+            <ul class="requirement-list">
+                <li><span class="checkmark">✓</span> Certificate of Registration</li>
+                <li><span class="checkmark">✓</span> Community Tax Certificate</li>
+                <li><span class="checkmark">✓</span> Sworn Declaration of Capital Investment</li>
+                <li><span class="checkmark">✓</span> Building Permit</li>
+                <li><span class="checkmark">✓</span> Contract of Lease (if applicable)</li>
+                <li><span class="checkmark">✓</span> Zoning Certificate</li>
+                <li><span class="checkmark">✓</span> Sanitary Permit</li>
+                <li><span class="checkmark">✓</span> Fire Safety Inspection Certificate (FSIC)</li>
+            </ul>
+        </div>
+        <!-- Walk-in Application -->
+        <div class="simple-section">
+            <h2 class="text-2xl font-bold mb-4 text-gray-800">Walk-in Application</h2>
+            <p class="mb-4">Submit a photocopy of all the required documents to the person responsible at Business One Stop Shop Office</p>
+                    </div>
+
+
+
+        <!-- Online Application Steps -->
+        <div class="simple-section">
+            <h2 class="text-2xl font-bold mb-6 text-gray-800">Online Application</h2>
+            
+            <!-- Step 1 -->
+            <div class="simple-step">
+                <div class="step-title">1. Account Setup</div>
+                <div class="step-content">
+                    <div class="action-item">
+                        <span class="bullet">•</span>
+                        <div>
+                            <a href="https://bpbc.ibpls.com/liloansouthernleyte/" class="link" target="_blank">Log in to iBPLS Website</a>. 
+                            <a href="https://sites.google.com/view/bossliloansl/manuals/create-new-account" class="link" target="_blank">Register here</a> if needed.
+                        </div>
+                    </div>
+                    <div class="action-item">
+                        <span class="bullet">•</span>
+                        <div>Click <strong>New Application</strong></div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Step 2 -->
+            <div class="simple-step">
+                <div class="step-title">2. Application Details</div>
+                <div class="step-content">
+                    <div class="action-item">
+                        <span class="bullet">•</span>
+                        <div>Select <strong>New</strong> for Type of Application</div>
+                    </div>
+                    <div class="action-item">
+                        <span class="bullet">•</span>
+                        <div>Choose <strong>Annually</strong> for Mode of Payment</div>
+                    </div>
+                    <div class="action-item">
+                        <span class="bullet">•</span>
+                        <div>Set <strong>Current Year</strong> for Tax Year</div>
+                    </div>
+                    <div class="action-item">
+                        <span class="bullet">•</span>
+                        <div>Check <a href="#" class="link">General Barangay Clearance</a></div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Step 3 -->
+            <div class="simple-step">
+                <div class="step-title">3. Business Information</div>
+                <div class="step-content">
+                    <div class="action-item">
+                        <span class="bullet">•</span>
+                        <div>Fill in business information</div>
+                    </div>
+                    <div class="action-item">
+                        <span class="bullet">•</span>
+                        <div>Click <strong>NEXT</strong></div>
+                    </div>
+                    <div class="action-item">
+                        <span class="bullet">•</span>
+                        <div>Provide business operation details</div>
+                    </div>
+                    <div class="action-item">
+                        <span class="bullet">•</span>
+                        <div>Click <strong>NEXT</strong></div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Step 4 -->
+            <div class="simple-step">
+                <div class="step-title">4. Business Activities</div>
+                <div class="step-content">
+                    <div class="note">
+                        For business code, refer to <a href="#" class="link">PSIC Code 2019</a> or use search
+                    </div>
+                    
+                    <div class="action-item">
+                        <span class="bullet">•</span>
+                        <div>
+                            Click <strong>Add Line of Business</strong> and select your business line(s)
+                        </div>
+                    </div>
+                    
+                    <div class="action-item">
+                        <span class="bullet">•</span>
+                        <div>
+                            Input capitalization by clicking 0.00 under Capital Investments
+                        </div>
+                    </div>
+                    
+                    <div class="note">
+                        Upload documents (PDF/JPG only, max 10MB)
+                    </div>
+                    
+                    <div class="action-item">
+                        <span class="bullet">•</span>
+                        <div>
+                            Click <strong>Upload Requirements</strong>, select requirement, choose file, then upload
+                        </div>
+                    </div>
+                    
+                    <div class="action-item">
+                        <span class="bullet">•</span>
+                        <div>Click <strong>NEXT</strong></div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Step 5 -->
+            <div class="simple-step">
+                <div class="step-title">5. Review & Submit</div>
+                <div class="step-content">
+                    <div class="action-item">
+                        <span class="bullet">•</span>
+                        <div>Review all information</div>
+                    </div>
+                    <div class="action-item">
+                        <span class="bullet">•</span>
+                        <div>Click <strong>SUBMIT</strong></div>
+                    </div>
+                    <div class="action-item">
+                        <span class="bullet">•</span>
+                        <div>Check box in pop-up and click <strong>SUBMIT</strong> again</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+            </div>
+
+    <!-- Team Section -->
+    <section class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="text-center mb-12">
+ <p class="text-blue-600 font-medium mb-2">Note: Before submitting your application, be sure to upload all the required documents otherwise your application will be declined. All applications submitted will go through the following processes below:</p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="bg-white rounded-lg overflow-hidden shadow-md">
+                    <div class="p-4">
+                        <h3 class="text-xl font-bold text-gray-900 mb-1">Verification</h3>
+                        <p class="text-blue-600 font-medium mb-2">BPLO or BPLO Staff</p>
+                        <p class="text-gray-600 text-sm">
+                            Checking all the information filled out by the registrant and if all required documents were uploaded is correct. 
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded-lg overflow-hidden shadow-md">
+                    <div class="p-4">
+                        <h3 class="text-xl font-bold text-gray-900 mb-1">Endorsement</h3>
+                        <p class="text-blue-600 font-medium mb-2">Sanitary Inspector, BFP and OBO</p>
+                        <p class="text-gray-600 text-sm">
+                            Approval of application by the endorsing office like BFP, Building Official, Zoning Officer & Sanitary Inspector
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded-lg overflow-hidden shadow-md">
+                    <div class="p-4">
+                        <h3 class="text-xl font-bold text-gray-900 mb-1">Payment</h3>
+                        <p class="text-blue-600 font-medium mb-2">Treasurer or Treasury Staff</p>
+                        <p class="text-gray-600 text-sm">
+                            One-time Assessment of Fees and Tax Order of payment will be sent to the registered email. You can proceed to payment via Online or Walk-in
+                        </p>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-lg overflow-hidden shadow-md">
+                    <div class="p-4">
+                        <h3 class="text-xl font-bold text-gray-900 mb-1">Issuance of Permit</h3>
+                        <p class="text-blue-600 font-medium mb-2">Treasurer or Treasury</p>
+                        <p class="text-gray-600 text-sm">
+                            The business owner/authorized may claim the official business permit  at our office located at Business One Stop Shop Municipal Building, Poblacion, Liloan, Southern Leyte
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Call to Action -->
+    <section class="py-16 bg-blue-700 text-white">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <h2 class="text-3xl font-bold mb-4">
+                Ready to Register Your Business?
+            </h2>
+            <p class="text-xl mb-8 max-w-3xl mx-auto">
+                Join hundreds of successful businesses that have partnered with us to achieve their goals.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="https://bpbc.ibpls.com/liloansouthernleyte" class="bg-white text-blue-700 px-6 py-3 rounded-md font-medium">Start Your Registration</a>
+                <a href="#" class="bg-transparent border border-white text-white px-6 py-3 rounded-md font-medium">View Requirements</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-4">BPLO Liloan</h3>
+                    <p class="text-gray-400 mb-4">
+                        Business Permit and Licensing Office of Liloan, Southern Leyte
+                    </p>
+                </div>
+                <div>
+                    <h4 class="font-semibold text-lg mb-4">Services</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#" class="hover:text-white">Business Registration</a></li>
+                        <li><a href="#" class="hover:text-white">Motorized Tricycle Operator's Permit</a></li>
+                        <li><a href="#" class="hover:text-white">Certification</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold text-lg mb-4">Information</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#" class="hover:text-white">About BPLO</a></li>
+                        <li><a href="#" class="hover:text-white">Our Team</a></li>
+                        <li><a href="#" class="hover:text-white">Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold text-lg mb-4">Contact</h4>
+                    <div class="space-y-2 text-gray-400">
+                        <p>Municipal Building, Poblacion</p>
+                        <p>Liloan, Southern Leyte</p>
+                        <p>Phone: (053) 123-4567</p>
+                        <p>Email: liloan.bpls@gmail.com</p>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
+                <p>&copy; 2025 BPLO Liloan, Southern Leyte. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

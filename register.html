@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Client Registration - Business Excellence</title>
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.12/typed.min.js"></script>
+    
+    <style>
+        :root {
+            --primary-navy: #1a2332;
+            --secondary-gold: #d4af37;
+            --accent-gray: #f8f9fa;
+            --text-charcoal: #2c3e50;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            min-height: 100vh;
+        }
+        
+        .font-display { font-family: 'Playfair Display', serif; }
+        .font-accent { font-family: 'Montserrat', sans-serif; }
+        
+        .registration-container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        
+        .progress-container {
+            background: #e9ecef;
+            height: 8px;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        
+        .progress-bar {
+            background: linear-gradient(90deg, var(--secondary-gold), #b8941f);
+            height: 100%;
+            width: 25%;
+            border-radius: 4px;
+            transition: width 0.5s ease;
+        }
+        
+        .form-step {
+            display: none;
+            opacity: 0;
+            transform: translateX(50px);
+            transition: all 0.5s ease;
+        }
+        
+        .form-step.active {
+            display: block;
+            opacity: 1;
+            transform: translateX(0);
+        }
+        
+        .service-option {
+            border: 2px solid #e9ecef;
+            border-radius: 15px;
+            padding: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: white;
+        }
+        
+        .service-option:hover {
+            border-color: var(--secondary-gold);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        
+        .service-option.selected {
+            border-color: var(--secondary-gold);
+            background: rgba(212, 175, 55, 0.1);
+        }
+        
+        .input-group {
+            position: relative;
+            margin-bottom: 1.5rem;
+        }
+        
+        .input-field {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            background: white;
+        }
+        
+        .input-field:focus {
+            outline: none;
+            border-color: var(--secondary-gold);
+            box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
+        }
+        
+        .input-field.valid {
+            border-color: #28a745;
+        }
+        
+        .input-field.invalid {
+            border-color: #dc3545;
+        }
+        
+        .file-upload {
+            border: 2px dashed #e9ecef;
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .file-upload:hover {
+            border-color: var(--secondary-gold);
+            background: rgba(212, 175, 55, 0.05);
+        }
+        
+        .file-upload.dragover {
+            border-color: var(--secondary-gold);
+            background: rgba(212, 175, 55, 0.1);
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, var(--secondary-gold), #b8941f);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(212, 175, 55, 0.3);
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            color: var(--primary-navy);
+            padding: 12px 30px;
+            border: 2px solid var(--primary-navy);
+            border-radius: 25px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .btn-secondary:hover {
+            background: var(--primary-navy);
+            color: white;
+        }
+        
+        .success-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+        
+        .success-content {
+            background: white;
+            padding: 3rem;
+            border-radius: 20px;
+            text-align: center;
+            max-width: 500px;
+            margin: 1rem;
+        }
+        
+        .success-icon {
+            width: 80px;
+            height: 80px;
+            background: #28a745;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: white;
+            margin: 0 auto 1rem;
+        }
+        
+        .step-indicator {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 2rem;
+        }
+        
+        .step-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #e9ecef;
+            margin: 0 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .step-dot.active {
+            background: var(--secondary-gold);
+            transform: scale(1.2);
+        }
+        
+        .step-dot.completed {
+            background: #28a745;
+        }
+        
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 8px;
+            margin-top: 1rem;
+        }
+        
+        .calendar-day {
+            aspect-ratio: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .calendar-day:hover {
+            background: var(--secondary-gold);
+            color: white;
+        }
+        
+        .calendar-day.selected {
+            background: var(--secondary-gold);
+            color: white;
+        }
+        
+        .time-slots {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 8px;
+            margin-top: 1rem;
+        }
+        
+        .time-slot {
+            padding: 8px 16px;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .time-slot:hover {
+            border-color: var(--secondary-gold);
+            background: rgba(212, 175, 55, 0.1);
+        }
+        
+        .time-slot.selected {
+            border-color: var(--secondary-gold);
+            background: rgba(212, 175, 55, 0.2);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-md border-b border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+<div class="flex-shrink-0 flex items-center">
+    <a href="index.html" class="flex items-center">
+        <img src="resources/logo.png" alt="BusinessExcellence" class="h-10 w-auto mr-3">
+        <span class="font-display text-2xl font-bold text-gray-900">BPLO - Liloan, Southern Leyte</span>
+    </a>
+</div>                <div class="hidden md:block">
+                    <a href="index.html" class="text-gray-700 hover:text-yellow-600 px-3 py-2 text-sm font-medium">Back to Home</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Registration Form -->
+    <div class="pt-24 pb-12 min-h-screen">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Header -->
+            <div class="text-center mb-12">
+                <h1 class="font-display text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+                    Client Registration
+                </h1>
+                <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+                    Join our network of successful businesses. Complete your registration in just a few steps.
+                </p>
+            </div>
+
+            <!-- Progress Indicator -->
+            <div class="mb-8">
+                <div class="step-indicator">
+                    <div class="step-dot active"></div>
+                    <div class="step-dot"></div>
+                    <div class="step-dot"></div>
+                    <div class="step-dot"></div>
+                </div>
+                <div class="progress-container mt-4">
+                    <div class="progress-bar"></div>
+                </div>
+            </div>
+
+            <!-- Registration Container -->
+            <div class="registration-container p-8 md:p-12">
+                <form class="registration-form">
+                    <!-- Step 1: Service Selection -->
+                    <div class="form-step active">
+                        <h2 class="font-display text-3xl font-bold text-gray-900 mb-6 text-center">
+                            Select Your Services
+                        </h2>
+                        <p class="text-gray-600 text-center mb-8">
+                            Choose the services that best fit your business needs. You can select multiple options.
+                        </p>
+                        
+                        <div class="grid md:grid-cols-2 gap-6 mb-8">
+                            <div class="service-option" data-service="strategy">
+                                <div class="flex items-start">
+                                    <div class="w-12 h-12 bg-yellow-100 rounded-full flex items-center justify-center mr-4">
+                                        <svg class="w-6 h-6 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                                        </svg>
+                                    </div>
+                                    <div>
+                                        <h3 class="font-bold text-gray-900 mb-2">Strategy Consulting</h3>
+                                        <p class="text-gray-600 text-sm">Comprehensive business strategy development</p>
+                                        <p class="text-yellow-600 font-bold mt-2">$5,000+</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="service-option" data-service="digital">
+                                <div class="flex items-start">
+                                    <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mr-4">
+                                        <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                                        </svg>
+                                    </div>
+                                    <div>
+                                        <h3 class="font-bold text-gray-900 mb-2">Digital Transformation</h3>
+                                        <p class="text-gray-600 text-sm">Modern technology integration</p>
+                                        <p class="text-yellow-600 font-bold mt-2">$8,000+</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="service-option" data-service="marketing">
+                                <div class="flex items-start">
+                                    <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mr-4">
+                                        <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z"></path>
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z"></path>
+                                        </svg>
+                                    </div>
+                                    <div>
+                                        <h3 class="font-bold text-gray-900 mb-2">Marketing Solutions</h3>
+                                        <p class="text-gray-600 text-sm">Comprehensive marketing strategies</p>
+                                        <p class="text-yellow-600 font-bold mt-2">$3,000+</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="service-option" data-service="financial">
+                                <div class="flex items-start">
+                                    <div class="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center mr-4">
+                                        <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"></path>
+                                        </svg>
+                                    </div>
+                                    <div>
+                                        <h3 class="font-bold text-gray-900 mb-2">Financial Planning</h3>
+                                        <p class="text-gray-600 text-sm">Strategic financial guidance</p>
+                                        <p class="text-yellow-600 font-bold mt-2">$4,000+</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="service-option" data-service="operations">
+                                <div class="flex items-start">
+                                    <div class="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center mr-4">
+                                        <svg class="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                        </svg>
+                                    </div>
+                                    <div>
+                                        <h3 class="font-bold text-gray-900 mb-2">Operations Optimization</h3>
+                                        <p class="text-gray-600 text-sm">Process efficiency improvement</p>
+                                        <p class="text-yellow-600 font-bold mt-2">$6,000+</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="service-option" data-service="coaching">
+                                <div class="flex items-start">
+                                    <div class="w-12 h-12 bg-indigo-100 rounded-full flex items-center justify-center mr-4">
+                                        <svg class="w-6 h-6 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                                        </svg>
+                                    </div>
+                                    <div>
+                                        <h3 class="font-bold text-gray-900 mb-2">Business Coaching</h3>
+                                        <p class="text-gray-600 text-sm">Leadership development</p>
+                                        <p class="text-yellow-600 font-bold mt-2">$2,500+</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <input type="hidden" id="selected-services" name="services" required>
+                        
+                        <div class="flex justify-center">
+                            <button type="button" class="next-step btn-primary">Continue to Next Step</button>
+                        </div>
+                    </div>
+
+                    <!-- Step 2: Personal Information -->
+                    <div class="form-step">
+                        <h2 class="font-display text-3xl font-bold text-gray-900 mb-6 text-center">
+                            Personal Information
+                        </h2>
+                        <p class="text-gray-600 text-center mb-8">
+                            Tell us about yourself so we can provide personalized service.
+                        </p>
+                        
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div class="input-group">
+                                <label class="block text-sm font-medium text-gray-700 mb-2">First Name *</label>
+                                <input type="text" name="firstName" class="input-field" required>
+                            </div>
+                            
+                            <div class="input-group">
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Last Name *</label>
+                                <input type="text" name="lastName" class="input-field" required>
+                            </div>
+                            
+                            <div class="input-group">
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Email Address *</label>
+                                <input type="email" name="email" class="input-field" required>
+                            </div>
+                            
+                            <div class="input-group">
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Phone Number *</label>
+                                <input type="tel" name="phone" class="input-field" required>
+                            </div>
+                            
+                            <div class="input-group">
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Job Title *</label>
+                                <input type="text" name="jobTitle" class="input-field" required>
+                            </div>
+                            
+                            <div class="input-group">
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Company Name *</label>
+                                <input type="text" name="companyName" class="input-field" required>
+                            </div>
+                            
+                            <div class="input-group md:col-span-2">
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Industry *</label>
+                                <select name="industry" class="input-field" required>
+                                    <option value="">Select your industry</option>
+                                    <option value="technology">Technology</option>
+                                    <option value="healthcare">Healthcare</option>
+                                    <option value="finance">Finance</option>
+                                    <option value="retail">Retail</option>
+                                    <option value="manufacturing">Manufacturing</option>
+                                    <option value="consulting">Consulting</option>
+                                    <option value="education">Education</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="flex justify-between mt-8">
+                            <button type="button" class="prev-step btn-secondary">Previous</button>
+                            <button type="button" class="next-step btn-primary">Continue</button>
+                        </div>
+                    </div>
+
+                    <!-- Step 3: Business Details -->
+                    <div class="form-step">
+                        <h2 class="font-display text-3xl font-bold text-gray-900 mb-6 text-center">
+                            Business Details
+                        </h2>
+                        <p class="text-gray-600 text-center mb-8">
+                            Provide additional information about your business needs.
+                        </p>
+                        
+                        <div class="space-y-6">
+                            <div class="input-group">
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Company Size *</label>
+                                <select name="companySize" class="input-field" required>
+                                    <option value="">Select company size</option>
+                                    <option value="startup">Startup (1-10 employees)</option>
+                                    <option value="small">Small Business (11-50 employees)</option>
+                                    <option value="medium">Medium Business (51-200 employees)</option>
+                                    <option value="large">Large Business (201-1000 employees)</option>
+                                    <option value="enterprise">Enterprise (1000+ employees)</option>
+                                </select>
+                            </div>
+                            
+                            <div class="input-group">
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Annual Revenue *</label>
+                                <select name="revenue" class="input-field" required>
+                                    <option value="">Select annual revenue</option>
+                                    <option value="pre-revenue">Pre-Revenue</option>
+                                    <option value="under-1m">Under $1M</option>
+                                    <option value="1m-5m">$1M - $5M</option>
+                                    <option value="5m-10m">$5M - $10M</option>
+                                    <option value="10m-50m">$10M - $50M</option>
+                                    <option value="over-50m">Over $50M</option>
+                                </select>
+                            </div>
+                            
+                            <div class="input-group">
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Project Timeline *</label>
+                                <select name="timeline" class="input-field" required>
+                                    <option value="">Select timeline</option>
+                                    <option value="immediate">Immediate (ASAP)</option>
+                                    <option value="1-month">Within 1 month</option>
+                                    <option value="3-months">Within 3 months</option>
+                                    <option value="6-months">Within 6 months</option>
+                                    <option value="1-year">Within 1 year</option>
+                                    <option value="planning">Just planning</option>
+                                </select>
+                            </div>
+                            
+                            <div class="input-group">
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Budget Range *</label>
+                                <select name="budget" class="input-field" required>
+                                    <option value="">Select budget range</option>
+                                    <option value="under-5k">Under $5,000</option>
+                                    <option value="5k-10k">$5,000 - $10,000</option>
+                                    <option value="10k-25k">$10,000 - $25,000</option>
+                                    <option value="25k-50k">$25,000 - $50,000</option>
+                                    <option value="50k-100k">$50,000 - $100,000</option>
+                                    <option value="over-100k">Over $100,000</option>
+                                </select>
+                            </div>
+                            
+                            <div class="input-group">
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Project Description</label>
+                                <textarea name="description" rows="4" class="input-field" placeholder="Describe your project goals, challenges, and what you hope to achieve..."></textarea>
+                            </div>
+                            
+                            <div class="file-upload" id="file-upload">
+                                <svg class="w-12 h-12 text-gray-400 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
+                                </svg>
+                                <p class="text-gray-600 mb-2">Upload Business Documents (Optional)</p>
+                                <p class="text-sm text-gray-500">Drag and drop files here, or click to browse</p>
+                                <input type="file" name="documents" multiple class="hidden" accept=".pdf,.doc,.docx,.txt">
+                            </div>
+                        </div>
+                        
+                        <div class="flex justify-between mt-8">
+                            <button type="button" class="prev-step btn-secondary">Previous</button>
+                            <button type="button" class="next-step btn-primary">Continue</button>
+                        </div>
+                    </div>
+
+                    <!-- Step 4: Review & Submit -->
+                    <div class="form-step">
+                        <h2 class="font-display text-3xl font-bold text-gray-900 mb-6 text-center">
+                            Review & Submit
+                        </h2>
+                        <p class="text-gray-600 text-center mb-8">
+                            Please review your information before submitting your registration.
+                        </p>
+                        
+                        <div class="bg-gray-50 rounded-2xl p-6 mb-8">
+                            <h3 class="font-bold text-gray-900 mb-4">Registration Summary</h3>
+                            <div id="registration-summary" class="space-y-3">
+                                <!-- Summary will be populated by JavaScript -->
+                            </div>
+                        </div>
+                        
+                        <div class="bg-yellow-50 border border-yellow-200 rounded-2xl p-6 mb-8">
+                            <div class="flex items-start">
+                                <svg class="w-6 h-6 text-yellow-600 mr-3 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                                <div>
+                                    <h4 class="font-semibold text-gray-900 mb-2">What happens next?</h4>
+                                    <ul class="text-gray-600 space-y-1">
+                                        <li>• We'll review your registration within 24 hours</li>
+                                        <li>• Our team will contact you to schedule a consultation</li>
+                                        <li>• You'll receive a personalized proposal</li>
+                                        <li>• Project kickoff within 1 week of approval</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-center mb-6">
+                            <input type="checkbox" id="terms" name="terms" class="w-5 h-5 text-yellow-600 rounded" required>
+                            <label for="terms" class="ml-3 text-sm text-gray-700">
+                                I agree to the <a href="#" class="text-yellow-600 hover:underline">Terms of Service</a> and 
+                                <a href="#" class="text-yellow-600 hover:underline">Privacy Policy</a>
+                            </label>
+                        </div>
+                        
+                        <div class="flex justify-between">
+                            <button type="button" class="prev-step btn-secondary">Previous</button>
+                            <button type="button" class="submit-registration btn-primary">Submit Registration</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="font-display text-2xl font-bold mb-4">BusinessExcellence</h3>
+                    <p class="text-gray-400 mb-4">
+                        Transforming businesses through strategic consulting and innovative solutions.
+                    </p>
+                </div>
+                <div>
+                    <h4 class="font-semibold text-lg mb-4">Services</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#" class="hover:text-yellow-600">Strategy Consulting</a></li>
+                        <li><a href="#" class="hover:text-yellow-600">Digital Transformation</a></li>
+                        <li><a href="#" class="hover:text-yellow-600">Marketing Solutions</a></li>
+                        <li><a href="#" class="hover:text-yellow-600">Financial Planning</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold text-lg mb-4">Contact</h4>
+                    <div class="space-y-2 text-gray-400">
+                        <p>Phone: (555) 123-4567</p>
+                        <p>Email: info@businessexcellence.com</p>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
+                <p>&copy; 2024 BusinessExcellence. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Main JavaScript -->
+    <script src="main.js"></script>
+    
+    <script>
+        // Enhanced registration form functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const serviceOptions = document.querySelectorAll('.service-option');
+            const selectedServicesInput = document.getElementById('selected-services');
+            const fileUpload = document.getElementById('file-upload');
+            const fileInput = fileUpload.querySelector('input[type="file"]');
+            
+            // Service selection
+            serviceOptions.forEach(option => {
+                option.addEventListener('click', function() {
+                    this.classList.toggle('selected');
+                    updateSelectedServices();
+                });
+            });
+            
+            function updateSelectedServices() {
+                const selected = document.querySelectorAll('.service-option.selected');
+                const services = Array.from(selected).map(s => s.dataset.service);
+                selectedServicesInput.value = services.join(',');
+            }
+            
+            // File upload functionality
+            fileUpload.addEventListener('click', () => fileInput.click());
+            
+            fileUpload.addEventListener('dragover', function(e) {
+                e.preventDefault();
+                this.classList.add('dragover');
+            });
+            
+            fileUpload.addEventListener('dragleave', function() {
+                this.classList.remove('dragover');
+            });
+            
+            fileUpload.addEventListener('drop', function(e) {
+                e.preventDefault();
+                this.classList.remove('dragover');
+                const files = e.dataTransfer.files;
+                handleFiles(files);
+            });
+            
+            fileInput.addEventListener('change', function() {
+                handleFiles(this.files);
+            });
+            
+            function handleFiles(files) {
+                if (files.length > 0) {
+                    const fileNames = Array.from(files).map(f => f.name).join(', ');
+                    fileUpload.querySelector('p').textContent = `Selected files: ${fileNames}`;
+                }
+            }
+            
+            // Form summary generation
+            function generateSummary() {
+                const formData = new FormData(document.querySelector('.registration-form'));
+                const summary = document.getElementById('registration-summary');
+                
+                let html = '';
+                
+                // Personal Information
+                html += `<div class="grid md:grid-cols-2 gap-4">
+                    <div><strong>Name:</strong> ${formData.get('firstName')} ${formData.get('lastName')}</div>
+                    <div><strong>Email:</strong> ${formData.get('email')}</div>
+                    <div><strong>Phone:</strong> ${formData.get('phone')}</div>
+                    <div><strong>Company:</strong> ${formData.get('companyName')}</div>
+                    <div><strong>Industry:</strong> ${formData.get('industry')}</div>
+                    <div><strong>Job Title:</strong> ${formData.get('jobTitle')}</div>
+                </div>`;
+                
+                // Services
+                const services = formData.get('services');
+                if (services) {
+                    html += `<div class="mt-4"><strong>Selected Services:</strong> ${services.split(',').join(', ')}</div>`;
+                }
+                
+                // Business Details
+                html += `<div class="grid md:grid-cols-2 gap-4 mt-4">
+                    <div><strong>Company Size:</strong> ${formData.get('companySize')}</div>
+                    <div><strong>Annual Revenue:</strong> ${formData.get('revenue')}</div>
+                    <div><strong>Timeline:</strong> ${formData.get('timeline')}</div>
+                    <div><strong>Budget Range:</strong> ${formData.get('budget')}</div>
+                </div>`;
+                
+                if (formData.get('description')) {
+                    html += `<div class="mt-4"><strong>Project Description:</strong> ${formData.get('description')}</div>`;
+                }
+                
+                summary.innerHTML = html;
+            }
+            
+            // Update summary when reaching step 4
+            document.querySelectorAll('.next-step').forEach(button => {
+                button.addEventListener('click', function() {
+                    setTimeout(() => {
+                        if (document.querySelector('.form-step.active').querySelector('h2').textContent.includes('Review')) {
+                            generateSummary();
+                        }
+                    }, 100);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
